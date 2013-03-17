@@ -36,12 +36,12 @@ def create_file(args):
 def make_file_contents(args):
     d = vars(args)
     d.pop("func", None)
-    print dict_to_plist(d)
+    return dict_to_plist(d)
 
 def remove(args):
     pass
 
-parser = argparse.ArgumentParser()
+parser = argparse.ArgumentParser(prog="Tasker")
 subparsers = parser.add_subparsers()
 
 # Create
@@ -59,6 +59,10 @@ delete.set_defaults(func=remove)
 # Edit
 edit = subparsers.add_parser("edit", help="edit a launchd task")
 edit.add_argument("label", help="The label of the task to edit")
+
+# List
+show = subparsers.add_parser("show", help="see all tasks for current user")
+show.set_defaults(func=printer)
 
 args = parser.parse_args()
 args.func(args)
