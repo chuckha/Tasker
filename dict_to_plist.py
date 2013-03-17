@@ -22,9 +22,11 @@ def val_to_plist_val(val, indent=2):
     elif isinstance(val, list):
         return "%s<array>\n%s%s</array>\n" % (spaces, "".join([val_to_plist_val(v, indent+1) for v in val]), spaces)
 
-
+def new_name(length=5):
+    return "".join([choice(lowercase) for _ in range(length)])
 
 if __name__=="__main__":
     print dict_to_plist({"Label": "Bananas", "StartInterval": "sup"})
     print dict_to_plist({"ProgramArguments": ["echo", "hello world"]})
     print dict_to_plist({"ProgramArguments": [[1,2,3], "b", [1,2,4]]})
+    print new_name()

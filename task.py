@@ -40,9 +40,10 @@ subparsers = parser.add_subparsers()
 
 # Create
 create = subparsers.add_parser("create", help="create a launchd task")
-create.add_argument("Label", help="The label of the task to create")
-create.add_argument("ProgramArguments", nargs='+')
-create.set_defaults(func=make_file_contents)
+create.add_argument("ProgramArguments", nargs='+', help="The command you want to run on an interval")
+create.add_argument("-l", "--label", dest="Label", default=new_name(), help="the label of the task to create")
+create.add_argument("-s", "--seconds", metavar="seconds", default="18000", dest="StartInterval", type=int, help="start this task every <N> seconds")
+create.set_defaults(func=create_file)
 
 # Delete
 delete = subparsers.add_parser("delete", help="delete a launchd task")
