@@ -4,24 +4,30 @@
 import os.path
 import argparse
 
-from dict_to_plist import dict_to_plist
+from dict_to_plist import dict_to_plist, new_name
+from launchd import print_plist_files, LAUNCH_AGENT_DIR
+
 
 #task create <label> <cmd>
 #task edit <label>
 #task delete <label>
+#task show
 
 # Todo: wow, launchd can run scripts from watched dirs
 
 class NeedLaunchdException(Exception):
     pass
 
+def printer(args):
+    print_plist_files()
+
 def create_file(args):
     # Todo: Actually check the OS and look for launchd. Does linux have launchd?
-    basedir = "~/Library/LaunchAgents"
+    basedir = LAUNCH_AGENT_DIR
     if not os.path.exists(basedir):
         raise NeedLaunchdException("You should have ~/Library/LaunchAgents, but"
         " you do not. I expect you to be running OS X 10.7 or later.")
-    filename = "%s/Tasker.local.%s.plist" % (basedir, args.label)
+    filename = "%s/Tasker.local.%s.plist" % (basedir, "".join(args.Label.split()))
     with open(filename, "w") as f:
         f.write(make_file_contents(args))
         # Todo: tell people how to load it
