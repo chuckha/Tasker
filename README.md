@@ -1,6 +1,6 @@
 # Tasker
 
-Tasker creates user launchd .plist files for you.
+Tasker creates user [launchd](http://developer.apple.com/library/mac/#documentation/Darwin/Reference/ManPages/man5/launchd.plist.5.html) .plist files for you.
 
 Launchd is replacing cron on OS X.
 
